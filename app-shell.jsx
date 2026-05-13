@@ -31,19 +31,22 @@ const Icon = {
 /* ============================================================
    ROUTING
 ============================================================ */
-const ROUTES = [
-  { id: 'home', label: 'Start', short: 'Start' },
-  { id: 'shop', label: 'Shop', short: 'Shop' },
-  { id: 'chemie', label: 'Wasserpflege', short: 'Wasserpflege' },
-  { id: 'reinigung', label: 'Reinigung', short: 'Reinigung' },
-  { id: 'ueberdachung', label: 'Überdachungen', short: 'Überdachungen' },
-  { id: 'galerie', label: 'Galerie & Kontakt', short: 'Galerie & Kontakt' },
+const NAV_ROUTES = [
+  { id: 'home',         label: 'Start',            short: 'Start' },
+  { id: 'shop',         label: 'Shop',             short: 'Shop' },
+  { id: 'chemie',       label: 'Wasserpflege',     short: 'Wasserpflege' },
+  { id: 'reinigung',    label: 'Reinigung',        short: 'Reinigung' },
+  { id: 'ueberdachung', label: 'Überdachungen',    short: 'Überdachungen' },
+  { id: 'galerie',      label: 'Galerie & Kontakt', short: 'Galerie' },
 ];
+const LEGAL_ROUTES = ['impressum', 'datenschutz', 'agb'];
+const ALL_ROUTE_IDS = [...NAV_ROUTES.map(r => r.id), ...LEGAL_ROUTES];
+const ROUTES = NAV_ROUTES; // backward-compat export
 
 function useRoute() {
   const get = () => {
     const h = (location.hash || '#home').replace('#', '');
-    return ROUTES.find(r => r.id === h) ? h : 'home';
+    return ALL_ROUTE_IDS.includes(h) ? h : 'home';
   };
   const [route, setRoute] = useState(get());
   useEffect(() => {
@@ -69,7 +72,7 @@ function NavLink({ to, current, children, onClick, className = '' }) {
 /* ============================================================
    HEADER & FOOTER
 ============================================================ */
-function Header({ route, openMenu }) {
+function Header({ route, openMenu, menuOpen }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 6);
@@ -84,7 +87,7 @@ function Header({ route, openMenu }) {
           <span>coolpool<sup>.at</sup></span>
         </a>
         <nav className="nav" aria-label="Hauptnavigation">
-          {ROUTES.map(r => (
+          {NAV_ROUTES.map(r => (
             <NavLink key={r.id} to={r.id} current={route}>{r.short}</NavLink>
           ))}
         </nav>
@@ -93,13 +96,18 @@ function Header({ route, openMenu }) {
           <a className="btn btn--ghost" href="#galerie">Anfragen</a>
           <a className="btn btn--primary" href="#shop">Zum Shop</a>
         </div>
-        <button className="hamburger" aria-label="Menü öffnen" onClick={openMenu}><span></span></button>
+        <button
+          className={`hamburger ${menuOpen ? 'is-open' : ''}`}
+          aria-label={menuOpen ? 'Menü schließen' : 'Menü öffnen'}
+          aria-expanded={menuOpen}
+          onClick={openMenu}
+        ><span></span></button>
       </div>
     </header>
   );
 }
 
-function MobileMenu({ open, close, route, go }) {
+function MobileMenu({ open, close, route }) {
   return (
     <div className={`mobile-menu ${open ? 'open' : ''}`} aria-hidden={!open}>
       <button className="close" onClick={close} aria-label="Menü schließen">✕</button>
@@ -107,7 +115,7 @@ function MobileMenu({ open, close, route, go }) {
         <Icon.phone /> +43 677 634 05072
       </a>
       <nav aria-label="Mobile Navigation">
-        {ROUTES.map(r => (
+        {NAV_ROUTES.map(r => (
           <a key={r.id} href={`#${r.id}`} className={route === r.id ? 'active' : ''} onClick={close}>
             {r.label}
           </a>
@@ -164,12 +172,11 @@ function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <div>© 2026 coolpool – Inhaber: Mück Alex</div>
+          <div>© 2026 coolpool – Inhaber: Alex Mück</div>
           <div>
-            <a href="#">Impressum</a>
-            <a href="#">Datenschutz</a>
-            <a href="#">AGB</a>
-            <a href="#">Cookies</a>
+            <a href="#impressum">Impressum</a>
+            <a href="#datenschutz">Datenschutz</a>
+            <a href="#agb">AGB</a>
           </div>
         </div>
       </div>
@@ -177,4 +184,4 @@ function Footer() {
   );
 }
 
-Object.assign(window, { Icon, ROUTES, useRoute, Header, MobileMenu, Footer });
+Object.assign(window, { Icon, ROUTES, NAV_ROUTES, LEGAL_ROUTES, useRoute, Header, MobileMenu, Footer });

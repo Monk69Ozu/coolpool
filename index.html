@@ -7,13 +7,60 @@
   <meta name="description" content="coolpool aus Sommerein – Pool-Fachhandel für Niederösterreich, Wien und Burgenland. Poolchemie, Reinigungsgeräte, Zubehör, Filteranlagen und WPS Poolüberdachungen. 30 Jahre Erfahrung. Persönliche Beratung."/>
   <meta name="keywords" content="Poolzubehör Österreich, Poolchemie Niederösterreich, Poolshop Wien Umgebung, Poolreinigung Zubehör, Poolüberdachung Österreich, Poolpflege Beratung, Poolprodukte Burgenland"/>
 
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:locale" content="de_AT"/>
+  <meta property="og:title" content="coolpool – Pool-Fachhandel Sommerein"/>
+  <meta property="og:description" content="Poolchemie, Reinigung, Zubehör und WPS Überdachungen. 30 Jahre Erfahrung. Online bestellen oder persönlich beraten lassen."/>
+  <meta property="og:url" content="https://monk69ozu.github.io/coolpool/"/>
+  <meta property="og:site_name" content="coolpool"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="coolpool – Pool-Fachhandel Sommerein"/>
+  <meta name="twitter:description" content="Poolchemie, Reinigung, Zubehör und WPS Überdachungen. 30 Jahre Erfahrung."/>
+
+  <!-- Favicon (SVG inline – kein separater Download nötig) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231e4f8c'/><path d='M4 21q4-5 8 0t8 0 8 0' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round'/><path d='M4 15q4-5 8 0t8 0 8 0' stroke='%2340c8d4' stroke-width='2.5' fill='none' stroke-linecap='round'/></svg>"/>
+
+  <!-- Preconnect für schnellere Ladezeiten -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preconnect" href="https://unpkg.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 
   <link rel="stylesheet" href="styles.css"/>
+
+  <!-- Schema.org LocalBusiness (verbessert Google-Suchergebnis) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "coolpool",
+    "description": "Pool-Fachhandel für Poolchemie, Reinigung, Zubehör und WPS Poolüberdachungen in Sommerein, Niederösterreich",
+    "url": "https://monk69ozu.github.io/coolpool/",
+    "telephone": "+436776340572",
+    "email": "Coolpool@gmx.at",
+    "founder": { "@type": "Person", "name": "Alex Mück" },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Sarasdorferweg 3A",
+      "addressLocality": "Sommerein",
+      "postalCode": "2453",
+      "addressRegion": "Niederösterreich",
+      "addressCountry": "AT"
+    },
+    "areaServed": [
+      { "@type": "State", "name": "Niederösterreich" },
+      { "@type": "City",  "name": "Wien" },
+      { "@type": "State", "name": "Burgenland" }
+    ],
+    "sameAs": []
+  }
+  </script>
 </head>
 <body>
+  <!-- Skip-Link für Tastatur-Navigation (Barrierefreiheit) -->
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
   <div id="root"></div>
 
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>

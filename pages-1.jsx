@@ -1,5 +1,28 @@
 /* global React */
 /* ============================================================
+   GOOGLE SHEETS CMS
+   URL Ihres als CSV veröffentlichten Google Sheets eintragen:
+   Datei → Freigeben → Im Web veröffentlichen → CSV-Format
+   Leer lassen = hartcodierte Produkte werden verwendet.
+============================================================ */
+const SHEETS_CSV_URL = '';
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+  return lines.slice(1).map(line => {
+    const vals = []; let inQ = false, cur = '';
+    for (const ch of line) {
+      if (ch === '"') inQ = !inQ;
+      else if (ch === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
+      else cur += ch;
+    }
+    vals.push(cur.trim());
+    return headers.reduce((o, h, i) => { o[h] = (vals[i] || '').replace(/^"|"$/g, ''); return o; }, {});
+  }).filter(r => r.id && r.sichtbar !== 'NEIN');
+}
+
+/* ============================================================
    HOME PAGE
 ============================================================ */
 
@@ -144,6 +167,26 @@ function HomePage() {
 
       <section className="section">
         <div className="container">
+          <div className="amazon-teaser">
+            <div>
+              <h3>Bald auch auf Amazon erhältlich</h3>
+              <p>Unsere Poolchemie und Reinigungsprodukte kommen demnächst auf Amazon.<br/>Melden Sie sich für eine Benachrichtigung an – oder bestellen Sie jetzt direkt bei uns.</p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
+              <a className="btn btn--amz btn--lg" href="#galerie">
+                <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 22, height: 22 }}><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.5.13.109.174.078.33-.09.465-.459.374-1.016.706-1.658.995-2.422 1.068-5.015 1.602-7.78 1.602-3.79 0-7.197-.818-10.217-2.455a7.35 7.35 0 0 1-.706-.434c-.188-.156-.21-.323-.09-.486z"/><path d="M21.15 16.1a.637.637 0 0 0-.594-.13c-.364.1-.725.193-1.08.28-1.178.28-2.355.42-3.53.42-1.51 0-2.905-.294-4.185-.882a10.3 10.3 0 0 1-3.133-2.337c-.087-.096-.175-.116-.263-.058a.23.23 0 0 0-.117.22c.043.413.218.837.523 1.272.305.436.727.86 1.268 1.272.855.645 1.82 1.085 2.897 1.32.977.214 1.98.265 3.006.152a9.52 9.52 0 0 0 2.997-.882c.364-.18.71-.375 1.037-.586.285-.183.534-.378.746-.586.072-.07.11-.138.114-.205.004-.067-.022-.14-.08-.22z"/></svg>
+                Update anfragen
+              </a>
+              <a className="btn btn--lg" href="#shop" style={{ background: 'rgba(255,255,255,0.2)', color: 'white', border: '1.5px solid rgba(255,255,255,0.5)' }}>
+                Jetzt direkt bestellen
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
           <div className="cta-block">
             <span className="eyebrow" style={{ color: 'rgba(255,255,255,0.85)' }}>Wir helfen weiter</span>
             <h2>Fragen zu Produkten oder Lieferung? Rufen Sie uns einfach an.</h2>
@@ -182,18 +225,36 @@ const SHOP_SORTS = ['Beliebteste', 'Neu eingetroffen', 'Name A–Z', 'Preis aufs
 function ShopPage({ cart, toggleCart }) {
   const [cat, setCat] = useState('Alle');
   const [sort, setSort] = useState('Beliebteste');
+  const [products, setProducts] = useState(PRODUCTS);
+
+  useEffect(() => {
+    if (!SHEETS_CSV_URL) return;
+    fetch(SHEETS_CSV_URL)
+      .then(r => r.text())
+      .then(text => {
+        const rows = parseCSV(text);
+        if (rows.length > 0) setProducts(rows.map(r => ({
+          id: r.id, name: r.name, cat: r.kategorie,
+          desc: r.beschreibung, price: r.preis,
+          badge: r.badge || undefined,
+          bild: r.bild_url, amazon: r.amazon_link,
+        })));
+      })
+      .catch(() => {});
+  }, []);
+
   const list = useMemo(() => {
-    let r = cat === 'Alle' ? PRODUCTS : PRODUCTS.filter(p => p.cat === cat);
+    let r = cat === 'Alle' ? products : products.filter(p => p.cat === cat);
     if (sort === 'Name A–Z') r = [...r].sort((a, b) => a.name.localeCompare(b.name));
     if (sort === 'Neu eingetroffen') r = [...r].sort((a, b) => (b.badge === 'Neu') - (a.badge === 'Neu'));
     if (sort === 'Beliebteste') r = [...r].sort((a, b) => (b.badge ? 1 : 0) - (a.badge ? 1 : 0));
     return r;
   }, [cat, sort]);
   const counts = useMemo(() => {
-    const c = { Alle: PRODUCTS.length };
-    PRODUCTS.forEach(p => { c[p.cat] = (c[p.cat] || 0) + 1; });
+    const c = { Alle: products.length };
+    products.forEach(p => { c[p.cat] = (c[p.cat] || 0) + 1; });
     return c;
-  }, []);
+  }, [products]);
   return (
     <>
       <div className="page-header">
@@ -237,8 +298,11 @@ function ShopPage({ cart, toggleCart }) {
                 {list.map(p => (
                   <div key={p.id} className="product-card">
                     <div className="thumb">
-                      <div className="placeholder pool">{p.name.toUpperCase()}</div>
+                      {p.bild
+                        ? <img src={p.bild} alt={p.name} loading="lazy"/>
+                        : <div className="placeholder pool">{p.name.toUpperCase()}</div>}
                       {p.badge && <span className="badge">{p.badge}</span>}
+                      {p.amazon && <a href={p.amazon} target="_blank" rel="noopener" className="badge" style={{ background: '#ff9900', right: 12, left: 'auto' }}>Amazon</a>}
                     </div>
                     <div className="body">
                       <div className="cat">{p.cat}</div>
