@@ -369,6 +369,22 @@ function App() {
   const [toast, setToast] = useState(null);
   const toastTimer = useRef();
 
+  // Page transition state
+  const [displayedRoute, setDisplayedRoute] = useState(route);
+  const [transClass, setTransClass] = useState('');
+  const transTimer = useRef();
+
+  useEffect(() => {
+    if (route === displayedRoute) return;
+    clearTimeout(transTimer.current);
+    setTransClass('page-exit');
+    transTimer.current = setTimeout(() => {
+      setDisplayedRoute(route);
+      setTransClass('page-enter');
+      transTimer.current = setTimeout(() => setTransClass(''), 460);
+    }, 260);
+  }, [route]);
+
   function toggleCart(id) {
     setCart(c => {
       const next = { ...c };
@@ -380,9 +396,9 @@ function App() {
     });
   }
 
-  // initialise hero on home – wait one frame so canvas is in DOM
+  // initialise hero when home page becomes visible
   useEffect(() => {
-    if (route !== 'home') return;
+    if (displayedRoute !== 'home') return;
     let s;
     const id = requestAnimationFrame(() => {
       if (window.__heroRunning) return;
@@ -396,24 +412,28 @@ function App() {
       window.__heroRunning = false;
       try { if (s) document.body.removeChild(s); } catch (_) {}
     };
-  }, [route]);
+  }, [displayedRoute]);
 
   let page;
-  if (route === 'shop')              page = <ShopPage cart={cart} toggleCart={toggleCart}/>;
-  else if (route === 'chemie')       page = <ChemiePage/>;
-  else if (route === 'reinigung')    page = <ReinigungPage/>;
-  else if (route === 'ueberdachung') page = <UeberdachungPage/>;
-  else if (route === 'galerie')      page = <GalleryKontaktPage/>;
-  else if (route === 'impressum')    page = <ImpressumPage/>;
-  else if (route === 'datenschutz')  page = <DatenschutzPage/>;
-  else if (route === 'agb')          page = <AGBPage/>;
-  else                               page = <HomePage/>;
+  if (displayedRoute === 'shop')              page = <ShopPage cart={cart} toggleCart={toggleCart}/>;
+  else if (displayedRoute === 'chemie')       page = <ChemiePage/>;
+  else if (displayedRoute === 'reinigung')    page = <ReinigungPage/>;
+  else if (displayedRoute === 'ueberdachung') page = <UeberdachungPage/>;
+  else if (displayedRoute === 'galerie')      page = <GalleryKontaktPage/>;
+  else if (displayedRoute === 'impressum')    page = <ImpressumPage/>;
+  else if (displayedRoute === 'datenschutz')  page = <DatenschutzPage/>;
+  else if (displayedRoute === 'agb')          page = <AGBPage/>;
+  else                                        page = <HomePage/>;
 
   return (
     <>
       <Header route={route} openMenu={() => setMenuOpen(o => !o)} menuOpen={menuOpen}/>
       <MobileMenu open={menuOpen} close={() => setMenuOpen(false)} route={route} go={go}/>
-      <main data-screen-label={route}>{page}</main>
+      <main data-screen-label={displayedRoute}>
+        <div className={`page-wrap ${transClass}`}>
+          {page}
+        </div>
+      </main>
       <Footer/>
       <div className={`cart-toast ${toast ? 'show' : ''}`}>
         <Icon.check style={{ width: 20, height: 20, color: '#5cc87a' }}/> {toast}
