@@ -73,10 +73,8 @@ function HomePage() {
         <div className="hero-canvas-fallback" aria-hidden="true"></div>
         {/* Dark gradient overlay */}
         <div className="hero-overlay" aria-hidden="true"></div>
-        {/* Sun rays */}
+        {/* Subtle atmospheric light */}
         <div className="hero-rays" aria-hidden="true"></div>
-        {/* Rising bubbles */}
-        <HeroBubbles/>
 
         {/* Text content over canvas */}
         <div className="hero-content">
