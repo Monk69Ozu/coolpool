@@ -396,24 +396,6 @@ function App() {
     });
   }
 
-  // initialise hero when home page becomes visible
-  useEffect(() => {
-    if (displayedRoute !== 'home') return;
-    let s;
-    const id = requestAnimationFrame(() => {
-      if (window.__heroRunning) return;
-      window.__heroRunning = true;
-      s = document.createElement('script');
-      s.src = 'hero3d.js';
-      document.body.appendChild(s);
-    });
-    return () => {
-      cancelAnimationFrame(id);
-      window.__heroRunning = false;
-      try { if (s) document.body.removeChild(s); } catch (_) {}
-    };
-  }, [displayedRoute]);
-
   let page;
   if (displayedRoute === 'shop')              page = <ShopPage cart={cart} toggleCart={toggleCart}/>;
   else if (displayedRoute === 'chemie')       page = <ChemiePage/>;

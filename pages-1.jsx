@@ -29,47 +29,64 @@ function parseCSV(text) {
 
 function HomePage() {
   useEffect(() => {
-    const SELECTORS = ['.hero-tag', '.hero h1', '.hero .hero-sub', '.hero .hero-buttons', '.hero .hero-trust'];
-    const DELAYS    = [60, 180, 310, 440, 580];
-    // Add .hero-entry (hidden) immediately, then .hero-in (visible) after delay
-    SELECTORS.forEach((sel, i) => {
+    const items = [
+      ['.hero-eyebrow',       0],
+      ['.hero h1',          140],
+      ['.hero .hero-sub',   290],
+      ['.hero .hero-buttons', 430],
+      ['.hero-bottom',      570],
+    ];
+    items.forEach(([sel, delay]) => {
       const el = document.querySelector(sel);
       if (!el) return;
       el.classList.add('hero-entry');
-      const t = setTimeout(() => el.classList.add('hero-in'), DELAYS[i]);
-      // no cleanup needed — component stays mounted while on home page
+      setTimeout(() => el.classList.add('hero-in'), delay);
     });
   }, []);
 
   return (
     <>
-      <section className="hero" id="hero-canvas-wrap">
-        {/* Full-bleed 3D canvas */}
-        <canvas id="hero-canvas" aria-hidden="true"></canvas>
-        <div className="hero-canvas-fallback" aria-hidden="true"></div>
-        {/* Dark gradient overlay */}
-        <div className="hero-overlay" aria-hidden="true"></div>
-        {/* Subtle atmospheric light */}
-        <div className="hero-rays" aria-hidden="true"></div>
+      <section className="hero">
+        <div className="hero-backdrop" aria-hidden="true">
+          <div className="hero-glow-a"/>
+          <div className="hero-glow-b"/>
+          <div className="hero-glow-c"/>
+        </div>
 
-        {/* Text content over canvas */}
         <div className="hero-content">
           <div className="container">
-            <span className="hero-tag"><span className="dot"></span> 30 Jahre Erfahrung · Sommerein, Österreich</span>
-            <h1>Alles für Ihren Pool –<br/><em>einfach bestellen,</em> abholen<br/>oder liefern lassen.</h1>
-            <p className="hero-sub">Poolchemie, Reinigung, Zubehör und persönliche Beratung für Ihren perfekten Poolgenuss. Direkt vom Fachhandel.</p>
+            <p className="hero-eyebrow">Poolchemie · Reinigung · Zubehör · Überdachungen</p>
+            <h1>Alles für Ihren Pool –<br/><em>direkt vom Fachhandel.</em></h1>
+            <p className="hero-sub">Über 200 Produkte, persönliche Beratung und schnelle Lieferung. Seit 30 Jahren Ihr Ansprechpartner in Niederösterreich, Wien und Burgenland.</p>
             <div className="hero-buttons">
               <a className="btn btn--primary btn--lg" href="#shop">Zum Shop <Icon.arrow style={{ width: 20, height: 20 }}/></a>
-              <a className="btn btn--soft btn--lg" href="#galerie" style={{ background: 'rgba(255,255,255,0.15)', color: 'white', border: '1.5px solid rgba(255,255,255,0.35)' }}>Beratung anfragen</a>
-            </div>
-            <div className="hero-trust">
-              <div><Icon.award/> 30 Jahre Erfahrung</div>
-              <div><Icon.chat/> Persönliche Beratung</div>
-              <div><Icon.truck/> Abholung & Lieferung</div>
+              <a className="btn btn--lg hero-btn-outline" href="#galerie">Beratung anfragen</a>
             </div>
           </div>
         </div>
 
+        <div className="hero-bottom">
+          <div className="container">
+            <div className="hero-stats">
+              <div className="hero-stat">
+                <strong>30</strong>
+                <span>Jahre Erfahrung</span>
+              </div>
+              <div className="hero-stat">
+                <strong>200+</strong>
+                <span>Produkte im Sortiment</span>
+              </div>
+              <div className="hero-stat">
+                <strong>NÖ · Wien · Bgld</strong>
+                <span>Liefergebiet</span>
+              </div>
+              <div className="hero-stat">
+                <strong><Icon.phone style={{ width: 15, height: 15, color: 'rgba(255,255,255,0.32)' }}/> +43 677 634 05072</strong>
+                <a href="tel:+436776340572">Jetzt anrufen</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <div className="region-strip">
