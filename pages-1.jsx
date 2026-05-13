@@ -26,30 +26,6 @@ function parseCSV(text) {
    HOME PAGE
 ============================================================ */
 
-/* Pre-computed bubble data so it's stable across renders */
-const BUBBLES = Array.from({ length: 28 }, (_, i) => ({
-  left:     `${(i * 37 + 11) % 100}%`,
-  size:     ((i * 13 + 5) % 10) + 4,
-  dur:      ((i * 7  + 4) % 7) + 5,
-  delay:    ((i * 11 + 2) % 10),
-  opacity:  0.12 + ((i * 17 + 3) % 30) / 100,
-}));
-
-function HeroBubbles() {
-  return (
-    <div className="hero-bubbles" aria-hidden="true">
-      {BUBBLES.map((b, i) => (
-        <span key={i} style={{
-          left: b.left,
-          width: b.size, height: b.size,
-          animationDuration: `${b.dur}s`,
-          animationDelay: `${b.delay}s`,
-          opacity: b.opacity,
-        }}/>
-      ))}
-    </div>
-  );
-}
 
 function HomePage() {
   useEffect(() => {
@@ -94,11 +70,6 @@ function HomePage() {
           </div>
         </div>
 
-        {/* Scroll hint */}
-        <div className="hero-scroll" aria-hidden="true">
-          <span>Scrollen</span>
-          <div className="hero-scroll-line"></div>
-        </div>
       </section>
 
       <div className="region-strip">
