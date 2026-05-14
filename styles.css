@@ -2,6 +2,29 @@
    coolpool – Designsystem
    ============================ */
 
+/* Lokale Fonts (DSGVO-konform – kein Google-Transfer) */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/outfit.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/inter.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('fonts/jetbrains-mono.woff2') format('woff2');
+}
+
 /* Hex-Fallbacks für Browser ohne oklch-Unterstützung */
 :root {
   --pool-deep: #1e4f8c;
@@ -146,13 +169,11 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   background: white;
   color: var(--ink);
   border: 2px solid var(--ink);
-  border-radius: 10px;
 }
 .btn--ghost:hover { background: var(--ink); color: white; }
 .btn--soft {
   background: var(--turquoise-soft);
   color: var(--pool-deep);
-  border-radius: 10px;
 }
 .btn--soft:hover { background: #9bd9de; }
 @supports (color: oklch(0 0 0)) {
@@ -382,7 +403,7 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 }
 .hero h1 em {
   font-style: normal;
-  color: rgba(255,255,255,0.68);
+  color: white;
 }
 .hero-sub {
   font-size: clamp(16px, 1.3vw, 19px);
@@ -396,7 +417,6 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   background: transparent;
   color: rgba(255,255,255,0.72);
   border: 1.5px solid rgba(255,255,255,0.18);
-  border-radius: 10px;
 }
 .hero-btn-outline:hover {
   background: rgba(255,255,255,0.06);
@@ -1252,6 +1272,34 @@ form textarea { resize: vertical; min-height: 140px; max-height: 400px; }
   margin-bottom: 32px;
 }
 .legal-page .lead-box p { color: var(--ink); margin: 0; font-size: 18px; }
+
+/* ===== Schwebender WhatsApp-Button ===== */
+.wa-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 150;
+  width: 60px;
+  height: 60px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+  transition: transform .2s, box-shadow .2s;
+  text-decoration: none;
+}
+.wa-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(37,211,102,0.6);
+  text-decoration: none;
+}
+.wa-float svg { width: 32px; height: 32px; color: white; }
+@media (max-width: 600px) {
+  .wa-float { bottom: 20px; right: 16px; width: 52px; height: 52px; }
+  .wa-float svg { width: 28px; height: 28px; }
+}
 
 /* ===== Produkt-Bild (wenn echte URL vorhanden) ===== */
 .product-card .thumb img {

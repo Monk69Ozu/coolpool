@@ -125,7 +125,7 @@ function GalleryKontaktPage() {
                   <div className="ico"><Icon.phone/></div>
                   <div>
                     <div className="label">Telefon</div>
-                    <div className="val"><a href="tel:+436776340572">+43 677 634 05072</a></div>
+                    <div className="val"><a href="tel:+436776340572">+43 677 634 0572</a></div>
                   </div>
                 </div>
                 <div className="contact-row">
@@ -270,9 +270,12 @@ function ImpressumPage() {
           ['Unternehmensname', 'coolpool'],
           ['Inhaber', 'Alex Mück'],
           ['Adresse', 'Sarasdorferweg 3A, 2453 Sommerein, Niederösterreich, Österreich'],
-          ['Telefon', '+43 677 634 05072'],
+          ['Telefon', '+43 677 634 0572'],
           ['E-Mail', 'Coolpool@gmx.at'],
           ['Unternehmensform', 'Einzelunternehmen'],
+          ['Berufsbezeichnung', 'Handelsgewerbe, verliehen in Österreich'],
+          ['Kammermitgliedschaft', 'Mitglied der Wirtschaftskammer Niederösterreich'],
+          ['UID-Nummer', '[ATU-Nummer bitte eintragen – oder: Kleinunternehmer gemäß § 6 Abs. 1 Z 27 UStG, keine Umsatzsteuer]'],
           ['Tätigkeitsbereich', 'Handel mit Poolchemie, Poolzubehör, Reinigungsgeräten und Poolüberdachungen'],
         ].map(([k, v]) => (
           <tr key={k} style={{ borderBottom: '1px solid var(--line)' }}>
@@ -283,11 +286,16 @@ function ImpressumPage() {
         </tbody>
       </table>
 
-      <h2>Aufsichtsbehörde</h2>
-      <p>Bezirkshauptmannschaft Bruck an der Leitha<br/>Gewerbeordnung: <a href="https://www.ris.bka.gv.at" target="_blank" rel="noopener">www.ris.bka.gv.at</a></p>
+      <h2>Aufsichtsbehörde &amp; Berufsrecht</h2>
+      <p>Aufsichtsbehörde: Bezirkshauptmannschaft Bruck an der Leitha<br/>
+      Anwendbare Rechtsvorschriften: Gewerbeordnung 1994 (GewO), abrufbar unter <a href="https://www.ris.bka.gv.at" target="_blank" rel="noopener">www.ris.bka.gv.at</a></p>
+
+      <h2>Medieninhaber (§ 25 MedienG)</h2>
+      <p>Alex Mück, coolpool, Sarasdorferweg 3A, 2453 Sommerein, Österreich<br/>
+      Unternehmensgegenstand: Pool-Fachhandel für Poolchemie, Zubehör und Überdachungen</p>
 
       <h2>EU-Streitschlichtung</h2>
-      <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>. Wir sind nicht bereit, an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+      <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>. Wir sind nicht verpflichtet und nicht bereit, an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen. Für außergerichtliche Streitbeilegung steht die Internet Ombudsstelle unter <a href="https://www.ombudsstelle.at" target="_blank" rel="noopener">ombudsstelle.at</a> zur Verfügung.</p>
 
       <h2>Haftung für Inhalte</h2>
       <p>Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für Richtigkeit, Vollständigkeit und Aktualität übernehmen wir keine Gewähr. Für externe Links sind die jeweiligen Betreiber verantwortlich.</p>
@@ -317,17 +325,17 @@ function DatenschutzPage() {
       </div>
 
       <h2>1. Verantwortlicher</h2>
-      <p>Alex Mück · coolpool · Sarasdorferweg 3A, 2453 Sommerein<br/>Tel: <a href="tel:+436776340572">+43 677 634 05072</a> · E-Mail: <a href="mailto:Coolpool@gmx.at">Coolpool@gmx.at</a></p>
+      <p>Alex Mück · coolpool · Sarasdorferweg 3A, 2453 Sommerein<br/>Tel: <a href="tel:+436776340572">+43 677 634 0572</a> · E-Mail: <a href="mailto:Coolpool@gmx.at">Coolpool@gmx.at</a></p>
 
       <h2>2. Verarbeitete Daten</h2>
       <h3>Kontaktformular</h3>
       <p>Wenn Sie unser Kontaktformular nutzen, verarbeiten wir: Name, E-Mail-Adresse, optionale Telefonnummer, Nachrichteninhalt.<br/><strong>Zweck:</strong> Bearbeitung Ihrer Anfrage · <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO · <strong>Speicherdauer:</strong> bis zu 3 Jahre nach Abschluss der Anfrage.</p>
 
       <h3>Server-Logs</h3>
-      <p>Beim Websitebesuch werden automatisch IP-Adresse, Datum/Uhrzeit, aufgerufene Seite und Browsertyp gespeichert. Löschung nach 7 Tagen.</p>
+      <p>Beim Websitebesuch werden automatisch IP-Adresse, Datum/Uhrzeit, aufgerufene Seite und Browsertyp gespeichert.<br/><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der IT-Sicherheit und dem fehlerfreien Betrieb). Löschung nach 7 Tagen.</p>
 
       <h2>3. Weitergabe von Daten</h2>
-      <p>Keine Weitergabe an Dritte, ausgenommen Formspree Inc. (Formularübermittlung, USA – Standardvertragsklauseln gem. Art. 46 DSGVO) und Behörden soweit gesetzlich vorgeschrieben.</p>
+      <p>Keine Weitergabe an Dritte, ausgenommen: Hosting-Anbieter im Rahmen eines Auftragsverarbeitungsvertrags gemäß Art. 28 DSGVO sowie Behörden, soweit gesetzlich vorgeschrieben.</p>
 
       <h2>4. Ihre Rechte (DSGVO)</h2>
       <ul>
@@ -337,8 +345,8 @@ function DatenschutzPage() {
       </ul>
       <p>Anfragen an: <a href="mailto:Coolpool@gmx.at">Coolpool@gmx.at</a></p>
 
-      <h2>5. Cookies</h2>
-      <p>Diese Website verwendet keine Tracking-Cookies. Es werden technisch notwendige Ressourcen (Google Fonts, Three.js CDN) geladen, die Ihre IP-Adresse an externe Server übertragen können.</p>
+      <h2>5. Cookies &amp; externe Ressourcen</h2>
+      <p>Diese Website verwendet keine Tracking-Cookies und kein Analytics. <strong>Schriften (Google Fonts)</strong> werden lokal ausgeliefert – es findet kein Transfer an Google statt. <strong>JavaScript-Bibliotheken</strong> (React, Three.js) werden von CDN-Diensten außerhalb der EU (Cloudflare Inc., USA) geladen; dabei wird Ihre IP-Adresse übertragen. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO. Eine lokale Einbindung dieser Bibliotheken ist geplant.</p>
 
       <div style={{ marginTop: 48, paddingTop: 32, borderTop: '1px solid var(--line)', color: 'var(--ink-soft)', fontSize: 16 }}>
         Stand: Mai 2026
@@ -374,13 +382,38 @@ function AGBPage() {
       <p>Abholung in Sommerein nach Vereinbarung. Persönliche Lieferung in NÖ, Wien und Burgenland möglich. Lieferzeiten werden individuell abgestimmt.</p>
 
       <h2>§ 5 Widerrufsrecht</h2>
-      <p>Für Verbraucher gilt ein 14-tägiges Widerrufsrecht gemäß §§ 11–16 FAGG. Ausgenommen sind bereits geöffnete Chemikalien und verderbliche Waren. Widerruf bitte per E-Mail an <a href="mailto:Coolpool@gmx.at">Coolpool@gmx.at</a>.</p>
+      <p>Für Verbraucher gilt ein 14-tägiges Widerrufsrecht gemäß §§ 11–16 FAGG ab Erhalt der Ware. Kein Widerrufsrecht besteht für versiegelte Waren, die aus Gründen des Gesundheitsschutzes oder der Hygiene nicht zur Rückgabe geeignet sind und deren Versiegelung nach der Lieferung entfernt wurde (§ 18 Abs. 1 Z 5 FAGG) – dies betrifft insbesondere bereits geöffnete Poolchemikalien. Widerruf bitte per E-Mail an <a href="mailto:Coolpool@gmx.at">Coolpool@gmx.at</a> oder durch Rücksendung der Ware. Die Rücksendekosten trägt der Verbraucher.</p>
 
       <h2>§ 6 Gewährleistung</h2>
       <p>Es gelten die gesetzlichen Gewährleistungsbestimmungen des österreichischen ABGB und KSchG. Für Schäden durch unsachgemäße Verwendung von Poolchemikalien wird keine Haftung übernommen.</p>
 
-      <h2>§ 7 Gerichtsstand</h2>
+      <h2>§ 7 Eigentumsvorbehalt</h2>
+      <p>Die Ware bleibt bis zur vollständigen Bezahlung des Kaufpreises im Eigentum von coolpool (Alex Mück).</p>
+
+      <h2>§ 8 Gerichtsstand</h2>
       <p>Es gilt österreichisches Recht. Gerichtsstand ist Bruck an der Leitha. Für Verbraucher mit EU-Wohnsitz gilt vorrangig das Recht des Wohnsitzstaates.</p>
+
+      <h2>§ 9 Muster-Widerrufsformular</h2>
+      <p style={{ color: 'var(--ink-soft)' }}>Wenn Sie den Vertrag widerrufen möchten, können Sie dieses Formular verwenden (ein formloses Schreiben genügt ebenfalls):</p>
+      <div style={{ background: 'var(--sand)', padding: '24px 28px', borderRadius: 12, fontFamily: "'JetBrains Mono', monospace", fontSize: 15, lineHeight: 1.9, marginTop: 12, whiteSpace: 'pre-wrap', color: 'var(--ink)' }}>
+{`An: Alex Mück · coolpool
+    Sarasdorferweg 3A · 2453 Sommerein
+    E-Mail: Coolpool@gmx.at
+
+Ich/Wir (*) widerrufe(n) hiermit den von mir/uns (*) abgeschlossenen
+Vertrag über den Kauf der folgenden Waren (*):
+
+Bestellt am: ___________________________
+Erhalten am: ___________________________
+
+Name: ___________________________
+Anschrift: ___________________________
+
+Datum: ___________   Unterschrift: ___________
+                      (nur bei Mitteilung auf Papier)
+
+(*) Unzutreffendes streichen.`}
+      </div>
 
       <div style={{ marginTop: 48, paddingTop: 32, borderTop: '1px solid var(--line)', color: 'var(--ink-soft)', fontSize: 16 }}>
         Stand: Mai 2026 · Alex Mück · coolpool · Sommerein

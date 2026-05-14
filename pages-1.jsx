@@ -81,7 +81,7 @@ function HomePage() {
                 <span>Liefergebiet</span>
               </div>
               <div className="hero-stat">
-                <strong><Icon.phone style={{ width: 15, height: 15, color: 'rgba(255,255,255,0.32)' }}/> +43 677 634 05072</strong>
+                <strong>+43 677 634 0572</strong>
                 <a href="tel:+436776340572">Jetzt anrufen</a>
               </div>
             </div>
@@ -178,7 +178,7 @@ function HomePage() {
             <h2>Fragen zu Produkten oder Lieferung? Rufen Sie uns einfach an.</h2>
             <p>Wir nehmen uns Zeit für jeden Pool. Lieber persönlich? Kommen Sie vorbei in Sommerein – wir freuen uns auf Ihren Besuch.</p>
             <div className="hero-buttons">
-              <a className="btn btn--primary btn--lg" href="tel:+436776340572"><Icon.phone style={{ width: 20, height: 20 }}/> +43 677 634 05072</a>
+              <a className="btn btn--primary btn--lg" href="tel:+436776340572"><Icon.phone style={{ width: 20, height: 20 }}/> +43 677 634 0572</a>
               <a className="btn btn--ghost btn--lg" href="#galerie">Nachricht schreiben</a>
             </div>
           </div>
@@ -636,7 +636,7 @@ function UeberdachungPage() {
             <p>Schicken Sie uns die Maße Ihres Pools oder ein Foto – wir empfehlen Ihnen das passende WPS-Modell inklusive Rabatt und Montage.</p>
             <div className="hero-buttons">
               <a className="btn btn--primary btn--lg" href="#galerie">Angebot anfordern</a>
-              <a className="btn btn--ghost btn--lg" href="tel:+436776340572"><Icon.phone style={{ width: 20, height: 20 }}/> +43 677 634 05072</a>
+              <a className="btn btn--ghost btn--lg" href="tel:+436776340572"><Icon.phone style={{ width: 20, height: 20 }}/> +43 677 634 0572</a>
             </div>
           </div>
         </div>

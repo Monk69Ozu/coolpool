@@ -15,6 +15,7 @@ COPY app-shell.jsx     ./public/
 COPY pages-1.jsx       ./public/
 COPY pages-2.jsx       ./public/
 COPY hero3d.js         ./public/
+COPY fonts/            ./public/fonts/
 
 EXPOSE 3001
 CMD ["node", "server.js"]
