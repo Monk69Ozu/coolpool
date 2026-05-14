@@ -212,8 +212,26 @@ function ShopPage({ cart, toggleCart }) {
   const [cat, setCat] = useState('Alle');
   const [sort, setSort] = useState('Beliebteste');
   const [products, setProducts] = useState(PRODUCTS);
+  const [orderState, setOrderState] = useState('idle'); /* idle | sending | sent | error */
+  const orderFormRef = useRef();
 
+  /* Produkte laden: zuerst API, dann Google Sheets, sonst Fallback */
   useEffect(() => {
+    if (window.COOLPOOL_API) {
+      fetch(`${window.COOLPOOL_API}/api/products`)
+        .then(r => r.json())
+        .then(rows => {
+          if (Array.isArray(rows) && rows.length > 0)
+            setProducts(rows.map(r => ({
+              id: r.id, name: r.name, cat: r.category,
+              desc: r.description, price: r.price,
+              badge: r.badge || undefined,
+              bild: r.image_url, amazon: r.amazon_url,
+            })));
+        })
+        .catch(() => {});
+      return;
+    }
     if (!SHEETS_CSV_URL) return;
     fetch(SHEETS_CSV_URL)
       .then(r => r.text())
@@ -228,6 +246,30 @@ function ShopPage({ cart, toggleCart }) {
       })
       .catch(() => {});
   }, []);
+
+  async function submitOrder(e) {
+    e.preventDefault();
+    const f = orderFormRef.current;
+    setOrderState('sending');
+    try {
+      const res = await fetch(`${window.COOLPOOL_API}/api/orders`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:       f['o-name'].value,
+          email:      f['o-email'].value,
+          phone:      f['o-phone'].value,
+          productIds: Object.keys(cart),
+          note:       f['o-note'].value,
+        }),
+      });
+      setOrderState(res.ok ? 'sent' : 'error');
+    } catch (_) {
+      setOrderState('error');
+    }
+  }
+
+  const cartCount = Object.keys(cart).length;
 
   const list = useMemo(() => {
     let r = cat === 'Alle' ? products : products.filter(p => p.cat === cat);
@@ -270,6 +312,32 @@ function ShopPage({ cart, toggleCart }) {
                 <li>500 € +</li>
               </ul>
               <a className="btn btn--soft btn--block" href="#galerie">Beratung anfragen</a>
+
+              {/* Warenkorb-Anfrage direkt absenden */}
+              {cartCount > 0 && window.COOLPOOL_API && (
+                <div style={{ marginTop: 24, padding: '20px', background: 'var(--turquoise-soft)', borderRadius: 'var(--radius)', border: '1.5px solid var(--pool)' }}>
+                  <h4 style={{ margin: '0 0 4px', fontSize: 15, color: 'var(--pool-deep)' }}>ANFRAGE SENDEN</h4>
+                  <p style={{ fontSize: 13, color: 'var(--ink-soft)', margin: '0 0 14px' }}>
+                    {cartCount} Produkt{cartCount > 1 ? 'e' : ''} ausgewählt
+                  </p>
+                  {orderState === 'sent' ? (
+                    <p style={{ color: '#1a5e28', fontWeight: 600, margin: 0 }}>
+                      Anfrage gesendet! Wir melden uns bald.
+                    </p>
+                  ) : (
+                    <form ref={orderFormRef} onSubmit={submitOrder} style={{ display: 'grid', gap: 10 }}>
+                      <input name="o-name"  required placeholder="Ihr Name *"  style={{ padding: '10px 14px', borderRadius: 10, border: '1.5px solid var(--line-strong)', fontSize: 15, fontFamily: 'inherit' }}/>
+                      <input name="o-email" required type="email" placeholder="E-Mail *" style={{ padding: '10px 14px', borderRadius: 10, border: '1.5px solid var(--line-strong)', fontSize: 15, fontFamily: 'inherit' }}/>
+                      <input name="o-phone" type="tel" placeholder="Telefon (optional)" style={{ padding: '10px 14px', borderRadius: 10, border: '1.5px solid var(--line-strong)', fontSize: 15, fontFamily: 'inherit' }}/>
+                      <textarea name="o-note" placeholder="Anmerkung (optional)" rows="2" style={{ padding: '10px 14px', borderRadius: 10, border: '1.5px solid var(--line-strong)', fontSize: 15, fontFamily: 'inherit', resize: 'vertical' }}/>
+                      {orderState === 'error' && <p style={{ color: '#c0392b', fontSize: 13, margin: 0 }}>Fehler – bitte erneut versuchen.</p>}
+                      <button type="submit" className="btn btn--primary btn--block" disabled={orderState === 'sending'} style={{ fontSize: 16, minHeight: 48 }}>
+                        {orderState === 'sending' ? 'Wird gesendet…' : 'Anfrage absenden'}
+                      </button>
+                    </form>
+                  )}
+                </div>
+              )}
             </aside>
             <div>
               <div className="sort-bar">

@@ -40,25 +40,34 @@ function GalleryKontaktPage() {
   async function onSubmit(e) {
     e.preventDefault();
     const form = e.target;
-
-    if (FORMSPREE_ID === 'IHRE_FORMSPREE_ID') {
-      // Demo-Modus: Formspree noch nicht eingerichtet
-      setSent(true);
-      setTimeout(() => setSent(false), 6000);
-      form.reset();
-      return;
-    }
-
     setSending(true);
     try {
-      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' },
-      });
-      if (res.ok) {
+      if (window.COOLPOOL_API) {
+        /* Backend API (MySQL) */
+        const res = await fetch(`${window.COOLPOOL_API}/api/contact`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            name:    form.name.value,
+            email:   form.email.value,
+            phone:   form.phone.value,
+            subject: form.subject.value,
+            message: form.message.value,
+          }),
+        });
+        if (res.ok) { setSent(true); setTimeout(() => setSent(false), 8000); form.reset(); }
+      } else if (FORMSPREE_ID !== 'IHRE_FORMSPREE_ID') {
+        /* Formspree als Fallback */
+        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) { setSent(true); setTimeout(() => setSent(false), 8000); form.reset(); }
+      } else {
+        /* Demo-Modus */
         setSent(true);
-        setTimeout(() => setSent(false), 8000);
+        setTimeout(() => setSent(false), 6000);
         form.reset();
       }
     } catch (_) {}
