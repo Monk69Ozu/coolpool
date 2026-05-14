@@ -47,15 +47,8 @@ function HomePage() {
   return (
     <>
       <section className="hero">
-        <div className="hero-backdrop" aria-hidden="true">
-          <div className="hero-blobs">
-            <div className="hero-blob-1"/>
-            <div className="hero-blob-2"/>
-            <div className="hero-blob-3"/>
-            <div className="hero-blob-4"/>
-          </div>
-          <div className="hero-vignette"/>
-        </div>
+        <canvas id="hero-canvas" aria-hidden="true"/>
+        <div className="hero-overlay" aria-hidden="true"/>
 
         <div className="hero-content">
           <div className="container">

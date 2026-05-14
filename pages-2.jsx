@@ -385,6 +385,17 @@ function App() {
     }, 260);
   }, [route]);
 
+  useEffect(() => {
+    if (displayedRoute !== 'home') return;
+    const s = document.createElement('script');
+    s.src = 'hero3d.js';
+    document.body.appendChild(s);
+    return () => {
+      if (window.__heroStop) { window.__heroStop(); }
+      try { document.body.removeChild(s); } catch (_) {}
+    };
+  }, [displayedRoute]);
+
   function toggleCart(id) {
     setCart(c => {
       const next = { ...c };
