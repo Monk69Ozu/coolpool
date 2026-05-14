@@ -3,7 +3,7 @@ WORKDIR /app
 
 # Backend-Abhängigkeiten installieren
 COPY backend/package*.json ./
-RUN npm ci --only=production
+RUN npm install --omit=dev
 
 # Backend-Code
 COPY backend/server.js .
