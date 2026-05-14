@@ -2,16 +2,13 @@ require('dotenv').config();
 const express = require('express');
 const mysql   = require('mysql2/promise');
 const cors    = require('cors');
+const path    = require('path');
 
 const app  = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors({
-  origin: process.env.FRONTEND_URL
-    ? process.env.FRONTEND_URL.split(',').map(s => s.trim())
-    : '*',
-  methods: ['GET', 'POST'],
-}));
+/* CORS nur für externe Zugriffe nötig — Frontend läuft auf gleicher Domain */
+app.use(cors({ origin: process.env.FRONTEND_URL || '*', methods: ['GET', 'POST'] }));
 app.use(express.json());
 
 /* ── Database pool ── */
@@ -68,6 +65,9 @@ async function initDB() {
   `);
   console.log('Datenbanktabellen bereit.');
 }
+
+/* ── Frontend statisch ausliefern ── */
+app.use(express.static(path.join(__dirname, 'public')));
 
 /* ── Routes ── */
 
@@ -129,6 +129,11 @@ app.post('/api/orders', async (req, res) => {
     res.status(500).json({ error: 'Speichern fehlgeschlagen.' });
   }
 });
+
+/* Alle anderen Routen → index.html (SPA-Fallback) */
+app.get('*', (_req, res) =>
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+);
 
 /* ── Start ── */
 initDB()
