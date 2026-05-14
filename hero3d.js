@@ -17,15 +17,15 @@
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   if (T.SRGBColorSpace) renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.88;
+  renderer.toneMappingExposure = 1.18;
 
   const scene = new T.Scene();
-  scene.background = new T.Color(0x020c1a);
+  scene.background = new T.Color(0x5dcff0);
 
-  /* Low-angle camera looking across the water surface */
+  /* Camera — gentle angle across bright pool surface */
   const camera = new T.PerspectiveCamera(50, 1, 0.1, 200);
-  camera.position.set(0, 2.4, 6.5);
-  camera.lookAt(0, 0, -1);
+  camera.position.set(0, 3.2, 7.2);
+  camera.lookAt(0, 0.4, -1);
 
   /* Water plane */
   const geo = new T.PlaneGeometry(28, 28, 160, 160);
@@ -66,29 +66,30 @@
       varying vec3  vPos;
 
       void main() {
-        /* Dark navy water palette */
-        vec3 c0 = vec3(0.010, 0.048, 0.155);
-        vec3 c1 = vec3(0.022, 0.088, 0.255);
-        vec3 c2 = vec3(0.040, 0.145, 0.385);
-        vec3 c3 = vec3(0.075, 0.220, 0.520);
+        /* Bright pool water palette */
+        vec3 c0 = vec3(0.04, 0.40, 0.68);   /* deep pool blue */
+        vec3 c1 = vec3(0.08, 0.64, 0.82);   /* mid turquoise */
+        vec3 c2 = vec3(0.18, 0.84, 0.90);   /* bright aqua */
+        vec3 c3 = vec3(0.72, 0.96, 1.00);   /* bright crest/foam */
 
         float t   = clamp(vH, 0.0, 1.0);
         vec3  col = mix(c0, c1, t);
-        col = mix(col, c2, pow(t, 1.6) * 0.78);
-        col = mix(col, c3, pow(t, 4.2) * 0.52);
+        col = mix(col, c2, pow(t, 1.6) * 0.80);
+        col = mix(col, c3, pow(t, 4.0) * 0.55);
 
-        /* Caustic shimmer */
+        /* Golden sunlight caustics */
         float ca = sin(vUv.x * 34.0 + uTime * 1.25) * sin(vUv.y * 27.0 + uTime * 0.95);
         float cb = sin(vUv.x * 19.0 - uTime * 0.72) * sin(vUv.y * 15.0 + uTime * 1.18);
-        col += (ca * ca + cb * cb) * 0.038 * vec3(0.18, 0.48, 1.0);
+        float cc = sin(vUv.x * 52.0 + uTime * 0.88) * sin(vUv.y * 47.0 - uTime * 1.04);
+        col += (ca * ca + cb * cb + cc * cc * 0.5) * 0.068 * vec3(1.0, 0.90, 0.65);
 
-        /* Radial vignette */
+        /* Subtle radial vignette */
         vec2 uv2 = vUv * 2.0 - 1.0;
-        col *= pow(max(1.0 - dot(uv2 * 0.52, uv2 * 0.52), 0.0), 0.36);
+        col *= pow(max(1.0 - dot(uv2 * 0.36, uv2 * 0.36), 0.0), 0.20);
 
-        /* Distance fog toward horizon */
+        /* Horizon fade to bright sky */
         float d = length(vPos.xz) / 13.0;
-        col = mix(col, vec3(0.010, 0.040, 0.112), clamp(d * d * 0.38, 0.0, 0.62));
+        col = mix(col, vec3(0.40, 0.84, 0.96), clamp(d * d * 0.42, 0.0, 0.72));
 
         gl_FragColor = vec4(col, 1.0);
       }
