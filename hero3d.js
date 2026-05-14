@@ -17,11 +17,11 @@
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   if (T.SRGBColorSpace) renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.40;
+  renderer.toneMappingExposure = 1.65;
 
   const scene = new T.Scene();
   /* Matches the horizon fade colour in the water shader exactly — no visible seam */
-  scene.background = new T.Color(0.52, 0.90, 0.98);
+  scene.background = new T.Color(0.64, 0.94, 0.99);
 
   /*
    * Camera steep enough that the entire frustum hits the water plane —
@@ -83,44 +83,48 @@
         float tz = mod(vPos.z * 1.3 + 0.5, 1.0);
         float grout = 1.0 - step(0.055, tx) * step(0.055, tz);
         vec3 tileCol = mix(
-          vec3(0.52, 0.86, 0.92),   /* tile face — pool blue  */
-          vec3(0.84, 0.96, 0.98),   /* grout — near white     */
+          vec3(0.38, 0.82, 0.93),   /* tile — vivid aqua      */
+          vec3(0.94, 0.99, 1.00),   /* grout — near white     */
           grout
         );
 
-        /* ── Water colour — deep pool → bright turquoise ── */
-        vec3 c0 = vec3(0.04, 0.40, 0.68);
-        vec3 c1 = vec3(0.10, 0.64, 0.84);
-        vec3 c2 = vec3(0.22, 0.84, 0.94);
-        vec3 c3 = vec3(0.72, 0.97, 1.00);
+        /* ── Water colour — Mediterranean resort: bright even deep ── */
+        vec3 c0 = vec3(0.08, 0.54, 0.80);   /* deep: medium aqua-blue  */
+        vec3 c1 = vec3(0.18, 0.74, 0.92);   /* mid: bright aqua        */
+        vec3 c2 = vec3(0.40, 0.90, 0.97);   /* shallow: vivid cyan     */
+        vec3 c3 = vec3(0.86, 0.98, 1.00);   /* crest: near white       */
         float t  = clamp(vH, 0.0, 1.0);
         vec3 col = mix(c0, c1, t);
-        col = mix(col, c2, pow(t, 1.5) * 0.80);
-        col = mix(col, c3, pow(t, 4.0) * 0.54);
+        col = mix(col, c2, pow(t, 1.2) * 0.88);
+        col = mix(col, c3, pow(t, 3.5) * 0.62);
+
+        /* ── Diffuse sun lighting — brightens whole surface ── */
+        vec3 sunDir  = normalize(vec3(1.6, 3.5, 0.8));
+        float diffuse = max(dot(vNrm, sunDir), 0.0) * 0.40 + 0.62;
+        col *= diffuse;
 
         /* Tiles shimmer through — more visible at crests */
-        col = mix(col, tileCol * 0.76, clamp(vH * 0.48 + 0.10, 0.0, 0.54));
+        col = mix(col, tileCol * 0.88, clamp(vH * 0.50 + 0.12, 0.0, 0.56));
 
         /* ── Blinn-Phong sun specular ── */
-        vec3 sunDir  = normalize(vec3(1.6, 3.5, 0.8));
         vec3 viewDir = normalize(cameraPosition - vPos);
         vec3 halfV   = normalize(sunDir + viewDir);
-        float spec   = pow(max(dot(vNrm, halfV), 0.0), 100.0);
-        col += spec * 0.80 * vec3(1.0, 0.96, 0.80);
+        float spec   = pow(max(dot(vNrm, halfV), 0.0), 85.0);
+        col += spec * 1.10 * vec3(1.0, 0.97, 0.88);
 
         /* ── Fresnel rim ── */
-        float fresnel = pow(1.0 - max(dot(vNrm, viewDir), 0.0), 3.2);
-        col = mix(col, vec3(0.76, 0.96, 1.00), fresnel * 0.44);
+        float fresnel = pow(1.0 - max(dot(vNrm, viewDir), 0.0), 3.0);
+        col = mix(col, vec3(0.84, 0.97, 1.00), fresnel * 0.42);
 
         /* ── Caustic shimmer (golden sunlight) ── */
         float ca = sin(vUv.x * 36.0 + uTime * 1.30) * sin(vUv.y * 29.0 + uTime * 0.95);
         float cb = sin(vUv.x * 21.0 - uTime * 0.74) * sin(vUv.y * 17.0 + uTime * 1.20);
         float cc = sin(vUv.x * 54.0 + uTime * 0.90) * sin(vUv.y * 49.0 - uTime * 1.06);
-        col += (ca*ca + cb*cb + cc*cc*0.4) * 0.060 * vec3(1.0, 0.88, 0.55);
+        col += (ca*ca + cb*cb + cc*cc*0.4) * 0.055 * vec3(1.0, 0.90, 0.60);
 
         /* ── Edge fade — blends seamlessly into background ── */
         float edgeDist = length(vPos.xz) / 18.0;
-        col = mix(col, vec3(0.52, 0.90, 0.98), clamp(edgeDist * edgeDist * 0.80, 0.0, 1.0));
+        col = mix(col, vec3(0.64, 0.94, 0.99), clamp(edgeDist * edgeDist * 0.80, 0.0, 1.0));
 
         gl_FragColor = vec4(col, 1.0);
       }
