@@ -136,6 +136,5 @@ app.get('*', (_req, res) =>
 );
 
 /* ── Start ── */
-initDB()
-  .then(() => app.listen(PORT, () => console.log(`coolpool-api läuft auf Port ${PORT}`)))
-  .catch(err => { console.error('DB-Init fehlgeschlagen:', err.message); process.exit(1); });
+app.listen(PORT, () => console.log(`coolpool-api läuft auf Port ${PORT}`));
+initDB().catch(err => console.error('DB-Init fehlgeschlagen (Demo-Modus aktiv):', err.message));
