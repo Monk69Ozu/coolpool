@@ -17,7 +17,7 @@
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   if (T.SRGBColorSpace) renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ReinhardToneMapping;
-  renderer.toneMappingExposure = 1.20;
+  renderer.toneMappingExposure = 1.60;
 
   const scene = new T.Scene();
   /* Matches the horizon fade colour in the water shader exactly — no visible seam */
@@ -88,11 +88,11 @@
           grout
         );
 
-        /* ── Water colour — bright tropical pool ── */
-        vec3 c0 = vec3(0.30, 0.82, 0.94);   /* deep: bright turquoise  */
-        vec3 c1 = vec3(0.50, 0.92, 0.98);   /* mid: very light aqua    */
-        vec3 c2 = vec3(0.72, 0.97, 1.00);   /* shallow: near white     */
-        vec3 c3 = vec3(0.94, 1.00, 1.00);   /* crest: white            */
+        /* ── Water colour — vivid Maldives pool ── */
+        vec3 c0 = vec3(0.00, 0.70, 0.90);   /* deep: electric cyan-blue */
+        vec3 c1 = vec3(0.10, 0.85, 0.95);   /* mid: bright cyan         */
+        vec3 c2 = vec3(0.40, 0.95, 1.00);   /* shallow: vivid aqua      */
+        vec3 c3 = vec3(0.80, 1.00, 1.00);   /* crest: white-aqua        */
         float t  = clamp(vH, 0.0, 1.0);
         vec3 col = mix(c0, c1, t);
         col = mix(col, c2, pow(t, 1.2) * 0.88);
