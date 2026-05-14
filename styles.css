@@ -342,69 +342,67 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   pointer-events: none;
 }
 
-/* Slow-drifting pool-tile grid */
-.hero-grid {
+/* Animated color blobs — blurred, organic depth */
+.hero-blobs {
   position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(40,110,220,0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(40,110,220,0.055) 1px, transparent 1px);
-  background-size: 54px 54px;
-  animation: gridDrift 28s linear infinite;
+  overflow: hidden;
+  filter: blur(88px) saturate(140%);
 }
-@keyframes gridDrift {
-  from { transform: translate(0, 0); }
-  to   { transform: translate(54px, 54px); }
+.hero-blob-1 {
+  position: absolute; border-radius: 50%; will-change: transform;
+  width: 58%; height: 62%;
+  background: rgba(14, 62, 168, 0.70);
+  top: 12%; left: -10%;
+  animation: hblob1 11s ease-in-out infinite;
+}
+.hero-blob-2 {
+  position: absolute; border-radius: 50%; will-change: transform;
+  width: 48%; height: 58%;
+  background: rgba(6, 38, 112, 0.58);
+  top: -18%; right: -10%;
+  animation: hblob2 13s ease-in-out infinite 2s;
+}
+.hero-blob-3 {
+  position: absolute; border-radius: 50%; will-change: transform;
+  width: 62%; height: 52%;
+  background: rgba(10, 52, 145, 0.52);
+  bottom: -8%; left: 12%;
+  animation: hblob3 15s ease-in-out infinite 1s;
+}
+.hero-blob-4 {
+  position: absolute; border-radius: 50%; will-change: transform;
+  width: 36%; height: 46%;
+  background: rgba(22, 88, 200, 0.42);
+  top: 42%; right: 2%;
+  animation: hblob4 9s ease-in-out infinite 3s;
+}
+@keyframes hblob1 {
+  0%, 100% { transform: translate(0%,  0%)  scale(1.00); }
+  30%       { transform: translate(6%, -8%) scale(1.08); }
+  65%       { transform: translate(10%, 6%) scale(0.95); }
+}
+@keyframes hblob2 {
+  0%, 100% { transform: translate(0%,   0%)  scale(1.00); }
+  35%       { transform: translate(-8%, 10%) scale(1.12); }
+  70%       { transform: translate(-3%, -7%) scale(0.93); }
+}
+@keyframes hblob3 {
+  0%, 100% { transform: translate(0%,  0%)   scale(1.00); }
+  25%       { transform: translate(-5%,-10%) scale(1.06); }
+  65%       { transform: translate(8%, -3%)  scale(1.03); }
+}
+@keyframes hblob4 {
+  0%, 100% { transform: translate(0%,  0%)  scale(1.00); }
+  40%       { transform: translate(-6%, 9%) scale(1.16); }
+  80%       { transform: translate(5%, -6%) scale(0.90); }
 }
 
-/* Deep blue glow from bottom */
-.hero-glow-a {
-  position: absolute;
-  bottom: -15%; left: 50%; transform: translateX(-50%);
-  width: 120%; height: 65%;
-  background: radial-gradient(ellipse at center, rgba(14,62,148,0.60), transparent 68%);
-  animation: glowBreath 9s ease-in-out infinite;
-}
-/* Accent glow top-right */
-.hero-glow-b {
-  position: absolute;
-  top: -5%; right: -8%;
-  width: 55%; height: 72%;
-  background: radial-gradient(ellipse at 75% 25%, rgba(8,38,100,0.30), transparent 62%);
-}
-/* Water shimmer at bottom */
-.hero-glow-c {
-  position: absolute;
-  bottom: 0; left: 0; right: 0; height: 45%;
-  background: linear-gradient(to top, rgba(10,50,130,0.30) 0%, transparent 100%);
-  animation: shimmerPulse 6s ease-in-out infinite;
-}
-/* Diagonal light streak */
-.hero-streak {
-  position: absolute;
-  top: -10%; left: -80%;
-  width: 38%; height: 120%;
-  background: linear-gradient(
-    108deg,
-    transparent 38%,
-    rgba(50,120,230,0.06) 50%,
-    transparent 62%
-  );
-  animation: streakPass 16s ease-in-out infinite 4s;
-}
-
-@keyframes glowBreath {
-  0%, 100% { opacity: 0.82; transform: translateX(-50%) scaleY(1.00); }
-  50%       { opacity: 1.00; transform: translateX(-50%) scaleY(1.09); }
-}
-@keyframes shimmerPulse {
-  0%, 100% { opacity: 0.72; }
-  50%       { opacity: 1.08; }
-}
-@keyframes streakPass {
-  0%        { transform: translateX(0)    skewX(-12deg); opacity: 0; }
-  6%        { opacity: 1; }
-  94%       { opacity: 1; }
-  100%      { transform: translateX(440%) skewX(-12deg); opacity: 0; }
+/* Vignette keeps text legible over blobs */
+.hero-vignette {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 90% 65% at 50% 50%, transparent 15%, rgba(2,12,26,0.80) 100%),
+    linear-gradient(to bottom, rgba(2,12,26,0.35) 0%, rgba(2,12,26,0.05) 45%, rgba(2,12,26,0.65) 100%);
 }
 
 /* Content */
@@ -491,7 +489,7 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-entry, .hero-entry.hero-in { transition: none !important; }
-  .hero-glow-a, .hero-glow-c, .hero-grid, .hero-streak { animation: none; }
+  .hero-blob-1, .hero-blob-2, .hero-blob-3, .hero-blob-4 { animation: none; }
 }
 
 /* ===== Sections ===== */

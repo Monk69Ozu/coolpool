@@ -48,11 +48,13 @@ function HomePage() {
     <>
       <section className="hero">
         <div className="hero-backdrop" aria-hidden="true">
-          <div className="hero-grid"/>
-          <div className="hero-glow-a"/>
-          <div className="hero-glow-b"/>
-          <div className="hero-glow-c"/>
-          <div className="hero-streak"/>
+          <div className="hero-blobs">
+            <div className="hero-blob-1"/>
+            <div className="hero-blob-2"/>
+            <div className="hero-blob-3"/>
+            <div className="hero-blob-4"/>
+          </div>
+          <div className="hero-vignette"/>
         </div>
 
         <div className="hero-content">
