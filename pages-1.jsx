@@ -57,7 +57,10 @@ function HomePage() {
             <p className="hero-sub">Über 200 Produkte, persönliche Beratung und schnelle Lieferung. Seit 30 Jahren Ihr Ansprechpartner in Niederösterreich, Wien und Burgenland.</p>
             <div className="hero-buttons">
               <a className="btn btn--primary btn--lg" href="#shop">Zum Shop <Icon.arrow style={{ width: 20, height: 20 }}/></a>
-              <a className="btn btn--lg hero-btn-outline" href="#galerie">Beratung anfragen</a>
+              <a className="btn btn--lg hero-btn-outline" href="#galerie"
+                 onClick={() => setTimeout(() => { const el = document.getElementById('kontakt-section'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 320)}>
+                Beratung anfragen
+              </a>
             </div>
           </div>
         </div>

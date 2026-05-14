@@ -96,7 +96,7 @@ function GalleryKontaktPage() {
         </div>
       </section>
 
-      <section className="section section--alt">
+      <section className="section section--alt" id="kontakt-section">
         <div className="container">
           <div className="contact-grid">
             <div>
@@ -135,25 +135,6 @@ function GalleryKontaktPage() {
                 </div>
               </div>
 
-              <div className="map-card" aria-label="Karte Standort Sommerein">
-                <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <defs>
-                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                      <path d="M40 0H0v40" fill="none" stroke="#dde5ea" strokeWidth="1"/>
-                    </pattern>
-                  </defs>
-                  <rect width="800" height="500" fill="#e8f2f6"/>
-                  <rect width="800" height="500" fill="url(#grid)"/>
-                  <path d="M0 280 Q200 240 400 270 T800 250" stroke="#7ecce0" strokeWidth="40" fill="none" opacity="0.5"/>
-                  <path d="M120 50 Q220 200 350 250 T700 460" stroke="#b8a880" strokeWidth="6" fill="none" opacity="0.6"/>
-                  <path d="M40 400 L760 380" stroke="#b8a880" strokeWidth="4" fill="none" opacity="0.6"/>
-                  <circle cx="160" cy="120" r="3" fill="#3a4a5c"/>
-                  <text x="170" y="115" fontFamily="Outfit,sans-serif" fontSize="14" fill="#3a4a5c">Wien</text>
-                  <circle cx="600" cy="380" r="3" fill="#3a4a5c"/>
-                  <text x="610" y="376" fontFamily="Outfit,sans-serif" fontSize="14" fill="#3a4a5c">Eisenstadt</text>
-                </svg>
-                <div className="map-pin">📍 Sommerein</div>
-              </div>
             </div>
 
             <div className="contact-card">
@@ -203,6 +184,46 @@ function GalleryKontaktPage() {
                 </button>
               </form>
             </div>
+          </div>
+
+          {/* Map — full width below contact grid */}
+          <div className="map-card" aria-label="Karte Standort Sommerein" style={{ marginTop: 40, aspectRatio: '21/6' }}>
+            <svg viewBox="0 0 1050 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ width: '100%', height: '100%', display: 'block' }}>
+              <defs>
+                <pattern id="mapgrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M40 0H0v40" fill="none" stroke="#d4dee6" strokeWidth="0.8"/>
+                </pattern>
+                <radialGradient id="mapglow" cx="50%" cy="50%" r="40%">
+                  <stop offset="0%" stopColor="#c8e8f5" stopOpacity="0.6"/>
+                  <stop offset="100%" stopColor="#e8f2f6" stopOpacity="0"/>
+                </radialGradient>
+              </defs>
+              {/* Background */}
+              <rect width="1050" height="300" fill="#e8f2f6"/>
+              <rect width="1050" height="300" fill="url(#mapgrid)"/>
+              <rect width="1050" height="300" fill="url(#mapglow)"/>
+              {/* Donau — wide blue river */}
+              <path d="M0 80 Q260 60 420 90 T700 75 T1050 88" stroke="#a8d8ee" strokeWidth="28" fill="none" opacity="0.7"/>
+              {/* Autobahn A3 */}
+              <path d="M0 200 Q300 185 525 190 T1050 178" stroke="#c8b870" strokeWidth="5" fill="none" opacity="0.7"/>
+              <path d="M0 200 Q300 185 525 190 T1050 178" stroke="white" strokeWidth="2" strokeDasharray="18 10" fill="none" opacity="0.8"/>
+              {/* Landstraße */}
+              <path d="M320 0 Q410 100 525 190 T680 300" stroke="#bbb" strokeWidth="3" fill="none" opacity="0.6"/>
+              {/* Wien dot */}
+              <circle cx="180" cy="95" r="5" fill="#3a4a5c" opacity="0.7"/>
+              <text x="192" y="99" fontFamily="Outfit,sans-serif" fontSize="15" fill="#3a4a5c" opacity="0.8">Wien</text>
+              {/* Eisenstadt dot */}
+              <circle cx="820" cy="210" r="4" fill="#3a4a5c" opacity="0.6"/>
+              <text x="830" y="214" fontFamily="Outfit,sans-serif" fontSize="13" fill="#3a4a5c" opacity="0.7">Eisenstadt</text>
+              {/* Bruck/Leitha dot */}
+              <circle cx="525" cy="195" r="3.5" fill="#3a4a5c" opacity="0.6"/>
+              <text x="535" y="199" fontFamily="Outfit,sans-serif" fontSize="12" fill="#3a4a5c" opacity="0.7">Bruck/L.</text>
+              {/* Sommerein pin */}
+              <circle cx="525" cy="148" r="14" fill="#1e4f8c" opacity="0.15"/>
+              <circle cx="525" cy="148" r="8" fill="#1e4f8c"/>
+              <circle cx="525" cy="148" r="3.5" fill="white"/>
+            </svg>
+            <div className="map-pin">📍 Sommerein, NÖ</div>
           </div>
         </div>
       </section>

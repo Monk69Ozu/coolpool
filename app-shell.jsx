@@ -140,9 +140,9 @@ function Footer() {
               Ihr Pool-Fachhandel in Sommerein. Poolchemie, Reinigung, Zubehör und persönliche Beratung – online bestellen, im Geschäft abholen oder bequem liefern lassen.
             </p>
             <div className="social-row">
-              <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5c0-1.2.4-2 2-2h2V2.1A28 28 0 0 0 14 2c-3 0-5 1.8-5 5.2V10H6v4h3v8h4Z"/></svg></a>
-              <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
-              <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 12a8 8 0 0 1-12 6.9L3 21l2.1-4.9A8 8 0 1 1 20 12Z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/></svg></a>
+              <a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5c0-1.2.4-2 2-2h2V2.1A28 28 0 0 0 14 2c-3 0-5 1.8-5 5.2V10H6v4h3v8h4Z"/></svg></a>
+              <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+              <a href="https://wa.me/436776340572" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 12a8 8 0 0 1-12 6.9L3 21l2.1-4.9A8 8 0 1 1 20 12Z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/></svg></a>
             </div>
           </div>
           <div>
