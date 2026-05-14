@@ -88,11 +88,11 @@
           grout
         );
 
-        /* ── TEST: red water to verify cache busting ── */
-        vec3 c0 = vec3(0.90, 0.10, 0.10);
-        vec3 c1 = vec3(0.95, 0.20, 0.20);
-        vec3 c2 = vec3(1.00, 0.40, 0.40);
-        vec3 c3 = vec3(1.00, 0.70, 0.70);
+        /* ── Water colour — bright holiday pool ── */
+        vec3 c0 = vec3(0.05, 0.65, 0.92);
+        vec3 c1 = vec3(0.20, 0.82, 0.97);
+        vec3 c2 = vec3(0.50, 0.94, 1.00);
+        vec3 c3 = vec3(0.85, 0.99, 1.00);
         float t  = clamp(vH, 0.0, 1.0);
         vec3 col = mix(c0, c1, t);
         col = mix(col, c2, pow(t, 1.2) * 0.88);
