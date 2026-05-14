@@ -451,7 +451,7 @@ function App() {
   useEffect(() => {
     if (displayedRoute !== 'home') return;
     const s = document.createElement('script');
-    s.src = 'hero3d.js';
+    s.src = 'hero3d.js?v=' + Date.now();
     document.body.appendChild(s);
     return () => {
       if (window.__heroStop) { window.__heroStop(); }

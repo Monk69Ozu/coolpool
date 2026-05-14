@@ -21,7 +21,7 @@
 
   const scene = new T.Scene();
   /* Matches the horizon fade colour in the water shader exactly — no visible seam */
-  scene.background = new T.Color(0.78, 0.97, 1.00);
+  scene.background = new T.Color(0.88, 0.98, 1.00);
 
   /*
    * Camera steep enough that the entire frustum hits the water plane —
@@ -88,11 +88,11 @@
           grout
         );
 
-        /* ── Water colour — Caribbean bright: very light even deep ── */
-        vec3 c0 = vec3(0.14, 0.66, 0.88);   /* deep: bright cyan-blue  */
-        vec3 c1 = vec3(0.28, 0.84, 0.96);   /* mid: vivid aqua         */
-        vec3 c2 = vec3(0.52, 0.94, 0.99);   /* shallow: very bright    */
-        vec3 c3 = vec3(0.90, 0.99, 1.00);   /* crest: near white       */
+        /* ── Water colour — bright tropical pool ── */
+        vec3 c0 = vec3(0.30, 0.82, 0.94);   /* deep: bright turquoise  */
+        vec3 c1 = vec3(0.50, 0.92, 0.98);   /* mid: very light aqua    */
+        vec3 c2 = vec3(0.72, 0.97, 1.00);   /* shallow: near white     */
+        vec3 c3 = vec3(0.94, 1.00, 1.00);   /* crest: white            */
         float t  = clamp(vH, 0.0, 1.0);
         vec3 col = mix(c0, c1, t);
         col = mix(col, c2, pow(t, 1.2) * 0.88);
@@ -124,7 +124,7 @@
 
         /* ── Edge fade — blends seamlessly into background ── */
         float edgeDist = length(vPos.xz) / 18.0;
-        col = mix(col, vec3(0.78, 0.97, 1.00), clamp(edgeDist * edgeDist * 0.80, 0.0, 1.0));
+        col = mix(col, vec3(0.88, 0.98, 1.00), clamp(edgeDist * edgeDist * 0.80, 0.0, 1.0));
 
         gl_FragColor = vec4(col, 1.0);
       }
