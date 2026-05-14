@@ -341,25 +341,57 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   position: absolute; inset: 0;
   pointer-events: none;
 }
+
+/* Slow-drifting pool-tile grid */
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(40,110,220,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(40,110,220,0.055) 1px, transparent 1px);
+  background-size: 54px 54px;
+  animation: gridDrift 28s linear infinite;
+}
+@keyframes gridDrift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(54px, 54px); }
+}
+
+/* Deep blue glow from bottom */
 .hero-glow-a {
   position: absolute;
   bottom: -15%; left: 50%; transform: translateX(-50%);
   width: 120%; height: 65%;
-  background: radial-gradient(ellipse at center, rgba(14,62,148,0.52), transparent 68%);
+  background: radial-gradient(ellipse at center, rgba(14,62,148,0.60), transparent 68%);
   animation: glowBreath 9s ease-in-out infinite;
 }
+/* Accent glow top-right */
 .hero-glow-b {
   position: absolute;
   top: -5%; right: -8%;
   width: 55%; height: 72%;
-  background: radial-gradient(ellipse at 75% 25%, rgba(8,38,100,0.28), transparent 62%);
+  background: radial-gradient(ellipse at 75% 25%, rgba(8,38,100,0.30), transparent 62%);
 }
+/* Water shimmer at bottom */
 .hero-glow-c {
   position: absolute;
   bottom: 0; left: 0; right: 0; height: 45%;
-  background: linear-gradient(to top, rgba(10,50,130,0.28) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(10,50,130,0.30) 0%, transparent 100%);
   animation: shimmerPulse 6s ease-in-out infinite;
 }
+/* Diagonal light streak */
+.hero-streak {
+  position: absolute;
+  top: -10%; left: -80%;
+  width: 38%; height: 120%;
+  background: linear-gradient(
+    108deg,
+    transparent 38%,
+    rgba(50,120,230,0.06) 50%,
+    transparent 62%
+  );
+  animation: streakPass 16s ease-in-out infinite 4s;
+}
+
 @keyframes glowBreath {
   0%, 100% { opacity: 0.82; transform: translateX(-50%) scaleY(1.00); }
   50%       { opacity: 1.00; transform: translateX(-50%) scaleY(1.09); }
@@ -368,20 +400,26 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   0%, 100% { opacity: 0.72; }
   50%       { opacity: 1.08; }
 }
+@keyframes streakPass {
+  0%        { transform: translateX(0)    skewX(-12deg); opacity: 0; }
+  6%        { opacity: 1; }
+  94%       { opacity: 1; }
+  100%      { transform: translateX(440%) skewX(-12deg); opacity: 0; }
+}
 
+/* Content */
 .hero-content {
   position: relative; z-index: 2;
   flex: 1;
   display: flex; align-items: center;
   padding: 140px 0 48px;
   color: white;
+  text-align: center;
 }
 .hero-eyebrow {
   font-family: 'Outfit', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.24em; text-transform: uppercase;
   color: rgba(255,255,255,0.36);
   margin: 0 0 32px;
 }
@@ -397,11 +435,11 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 .hero-sub {
   font-size: clamp(16px, 1.3vw, 19px);
   color: rgba(255,255,255,0.50);
-  max-width: 500px;
-  margin-bottom: 48px;
+  max-width: 540px;
+  margin: 0 auto 48px;
   line-height: 1.70;
 }
-.hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
 .hero-btn-outline {
   background: transparent;
   color: rgba(255,255,255,0.72);
@@ -415,12 +453,13 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
   text-decoration: none;
 }
 
+/* Stats bar */
 .hero-bottom {
   position: relative; z-index: 2;
   border-top: 1px solid rgba(255,255,255,0.07);
   padding: 20px 0;
 }
-.hero-stats { display: flex; align-items: stretch; }
+.hero-stats { display: flex; align-items: stretch; justify-content: center; }
 .hero-stat {
   display: flex; flex-direction: column; gap: 4px;
   padding: 4px 36px;
@@ -436,8 +475,7 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 }
 .hero-stat span, .hero-stat a {
   font-size: 12px; color: rgba(255,255,255,0.36);
-  font-weight: 400; letter-spacing: 0.02em;
-  text-decoration: none;
+  font-weight: 400; letter-spacing: 0.02em; text-decoration: none;
 }
 .hero-stat a:hover { color: rgba(255,255,255,0.62); }
 
@@ -453,7 +491,7 @@ button:focus-visible, a:focus-visible, [tabindex]:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-entry, .hero-entry.hero-in { transition: none !important; }
-  .hero-glow-a, .hero-glow-c { animation: none; }
+  .hero-glow-a, .hero-glow-c, .hero-grid, .hero-streak { animation: none; }
 }
 
 /* ===== Sections ===== */

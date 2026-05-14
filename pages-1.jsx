@@ -48,9 +48,11 @@ function HomePage() {
     <>
       <section className="hero">
         <div className="hero-backdrop" aria-hidden="true">
+          <div className="hero-grid"/>
           <div className="hero-glow-a"/>
           <div className="hero-glow-b"/>
           <div className="hero-glow-c"/>
+          <div className="hero-streak"/>
         </div>
 
         <div className="hero-content">
