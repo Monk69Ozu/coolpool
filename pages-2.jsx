@@ -9,18 +9,18 @@
 const FORMSPREE_ID = 'IHRE_FORMSPREE_ID';
 
 const GALLERY = [
-  { cat: 'Pools', label: 'Garten-Pool · Bruck/Leitha', tile: 'pool' },
-  { cat: 'Überdachungen', label: 'WPS Tropic · Eisenstadt', tile: 'sand' },
-  { cat: 'Produkte', label: 'Chemie-Set für die Saison', tile: 'dark' },
-  { cat: 'Pools', label: 'Folienpool · Sommerein', tile: 'pool' },
-  { cat: 'Zubehör', label: 'Poolroboter im Einsatz', tile: 'pool' },
-  { cat: 'Überdachungen', label: 'WPS Relax · Niederösterreich', tile: 'sand' },
-  { cat: 'Pools', label: 'Naturpool · Burgenland', tile: 'pool' },
-  { cat: 'Zubehör', label: 'Filter & Sandfilter-Anlage', tile: 'dark' },
-  { cat: 'Produkte', label: 'Multi-Tabletten Lieferung', tile: 'pool' },
-  { cat: 'Pools', label: 'Edelstahlpool · Wien Umgebung', tile: 'sand' },
-  { cat: 'Überdachungen', label: 'WPS Champion · Pannonien', tile: 'dark' },
-  { cat: 'Zubehör', label: 'Kescher und Bürsten', tile: 'pool' },
+  { cat: 'Pools', label: 'Garten-Pool mit Steinplatten', tile: 'pool', img: 'img/pool-1.jpg' },
+  { cat: 'Pools', label: 'Folienpool · leuchtend türkis', tile: 'pool', img: 'img/pool-4.jpg' },
+  { cat: 'Pools', label: 'Pool mit Holzterrasse', tile: 'pool', img: 'img/pool-3.jpg' },
+  { cat: 'Pools', label: 'Pool vor dem Haus', tile: 'pool', img: 'img/pool-2.jpg' },
+  { cat: 'Pools', label: 'Pool-Gartenanlage', tile: 'pool', img: 'img/pool-5.jpg' },
+  { cat: 'Pools', label: 'Pool im Innenhof', tile: 'pool', img: 'img/pool-6.jpg' },
+  { cat: 'Pools', label: 'Pool mit Steinteppich', tile: 'pool', img: 'img/pool-7.jpg' },
+  { cat: 'Pools', label: 'Pool mit Heckenkulisse', tile: 'pool', img: 'img/pool-8.jpg' },
+  { cat: 'Pools', label: 'Großer Pool · Sandstein', tile: 'pool', img: 'img/pool-9.jpg' },
+  { cat: 'Pools', label: 'Pool mit Delfin-Motiv', tile: 'pool', img: 'img/pool-10.jpg' },
+  { cat: 'Geschäft', label: 'Unser Geschäft in Sommerein', tile: 'pool', img: 'img/geschaeft-1.jpg' },
+  { cat: 'Geschäft', label: 'Reinigungszubehör im Sortiment', tile: 'pool', img: 'img/geschaeft-2.jpg' },
 ];
 
 function GalleryKontaktPage() {
@@ -91,14 +91,16 @@ function GalleryKontaktPage() {
             <h2>Pools, Produkte und Projekte</h2>
           </div>
           <div className="gallery-filters">
-            {['Alle', 'Pools', 'Produkte', 'Überdachungen', 'Zubehör'].map(f => (
+            {['Alle', ...Array.from(new Set(GALLERY.map(g => g.cat)))].map(f => (
               <button key={f} className={filter === f ? 'active' : ''} onClick={() => setFilter(f)}>{f}</button>
             ))}
           </div>
           <div className="gallery-grid">
             {items.map((g, i) => (
-              <a key={i} onClick={(e) => { e.preventDefault(); setLightbox(g); }} href="#">
-                <div className={`placeholder ${g.tile}`}>{g.label.toUpperCase()}</div>
+              <a key={i} onClick={(e) => { e.preventDefault(); setLightbox(g); }} href="#" title={g.label}>
+                {g.img
+                  ? <img src={g.img} alt={g.label} loading="lazy"/>
+                  : <div className={`placeholder ${g.tile}`}>{g.label.toUpperCase()}</div>}
               </a>
             ))}
           </div>
@@ -241,7 +243,9 @@ function GalleryKontaktPage() {
         {lightbox && (
           <div className="lightbox-inner" onClick={e => e.stopPropagation()}>
             <button className="close-btn" onClick={() => setLightbox(null)} aria-label="Schließen">✕</button>
-            <div className={`placeholder ${lightbox.tile}`} style={{ height: '100%', fontSize: 18 }}>{lightbox.label.toUpperCase()}</div>
+            {lightbox.img
+              ? <img src={lightbox.img} alt={lightbox.label} style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', borderRadius: 'inherit' }}/>
+              : <div className={`placeholder ${lightbox.tile}`} style={{ height: '100%', fontSize: 18 }}>{lightbox.label.toUpperCase()}</div>}
           </div>
         )}
       </div>

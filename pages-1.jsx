@@ -108,15 +108,15 @@ function HomePage() {
 
           <div className="services-grid">
             {[
-              { id: 'chemie', t: 'Poolchemie', d: 'Chlor, pH, Algenschutz und alles für klares, gesundes Wasser.', tile: 'pool' },
-              { id: 'reinigung', t: 'Reinigung & Zubehör', d: 'Bürsten, Kescher, Schwämme, Roboter – sauberer Pool ohne Mühe.', tile: 'sand' },
-              { id: 'shop', t: 'Filter & Technik', d: 'Filteranlagen, Pumpen und Ersatzteile vom Fachhandel.', tile: 'pool' },
+              { id: 'chemie', t: 'Poolchemie', d: 'Chlor, pH, Algenschutz und alles für klares, gesundes Wasser.', tile: 'pool', img: 'img/geschaeft-chemie.jpg' },
+              { id: 'reinigung', t: 'Reinigung & Zubehör', d: 'Bürsten, Kescher, Schwämme, Roboter – sauberer Pool ohne Mühe.', tile: 'sand', img: 'img/service-reinigung.jpg' },
+              { id: 'shop', t: 'Filter & Technik', d: 'Filteranlagen, Pumpen und Ersatzteile vom Fachhandel.', tile: 'pool', img: 'img/service-technik.jpg' },
               { id: 'ueberdachung', t: 'Poolüberdachungen', d: 'WPS Premium-Überdachungen – mit 10 % Partnerrabatt.', tile: 'dark' },
               { id: 'shop', t: 'Abdeckungen', d: 'Solarfolien, Winterabdeckungen, Rollläden – passend zu Ihrem Pool.', tile: 'sand' },
-              { id: 'galerie', t: 'Persönliche Beratung', d: 'Wasseranalyse, Problemlösung, Empfehlung – direkt vom Profi.', tile: 'pool' },
+              { id: 'galerie', t: 'Persönliche Beratung', d: 'Wasseranalyse, Problemlösung, Empfehlung – direkt vom Profi.', tile: 'pool', img: 'img/geschaeft-1.jpg' },
             ].map((s, i) => (
               <a key={i} className="service-card" href={`#${s.id}`}>
-                <div className="tile"><div className={`placeholder ${s.tile}`}>{s.t.toUpperCase()}</div></div>
+                <div className="tile">{s.img ? <img src={s.img} alt={s.t} loading="lazy"/> : <div className={`placeholder ${s.tile}`}>{s.t.toUpperCase()}</div>}</div>
                 <h3>{s.t}</h3>
                 <p className="desc">{s.d}</p>
                 <span className="arrow">Mehr ansehen <Icon.arrow style={{ width: 18, height: 18 }}/></span>
@@ -192,14 +192,14 @@ function HomePage() {
    SHOP PAGE
 ============================================================ */
 const PRODUCTS = [
-  { id: 'sauer-rot-5', name: 'Sauer Rot 5 Liter', cat: 'Poolchemie', desc: 'pH-Wert senken – flüssig dosierbar für klares Wasser.', price: '24,90', badge: 'Beliebt' },
-  { id: 'multi-tab-5', name: 'Multi-Tabletten 5 kg', cat: 'Poolchemie', desc: '4-in-1 Tabletten: Desinfektion, Algen, Flockung, Härte.', price: '69,90', badge: 'Bestseller' },
-  { id: 'ph-minus-8', name: 'pH minus 8 kg', cat: 'Poolchemie', desc: 'Granulat zur sicheren Reduktion des pH-Werts.', price: '32,50' },
-  { id: 'chlor-65', name: 'Chlor Granulat 65 · 1 kg', cat: 'Poolchemie', desc: 'Schnell lösliches Chlorgranulat für die Stoßchlorung.', price: '18,90' },
-  { id: 'metal-ex-1', name: 'Metal-Ex 1 Liter', cat: 'Poolchemie', desc: 'Bindet Eisen, Kupfer und Mangan im Poolwasser.', price: '21,50' },
-  { id: 'skimmer-schwamm', name: 'Skimmer-Schwamm', cat: 'Reinigung', desc: 'Fängt Sonnenöl, Fette und Schmutz im Skimmer.', price: '4,90', badge: 'Neu' },
+  { id: 'sauer-rot-5', name: 'Sauer Rot 5 Liter', cat: 'Poolchemie', desc: 'pH-Wert senken – flüssig dosierbar für klares Wasser.', price: '24,90', badge: 'Beliebt', bild: 'img/prod-sauer-rot.jpg' },
+  { id: 'multi-tab-5', name: 'Multi-Tabletten 5 kg', cat: 'Poolchemie', desc: '4-in-1 Tabletten: Desinfektion, Algen, Flockung, Härte.', price: '69,90', badge: 'Bestseller', bild: 'img/prod-multitab.jpg' },
+  { id: 'ph-minus-8', name: 'pH minus 8 kg', cat: 'Poolchemie', desc: 'Granulat zur sicheren Reduktion des pH-Werts.', price: '32,50', bild: 'img/prod-ph-minus.jpg' },
+  { id: 'chlor-65', name: 'Chlor Granulat 65 · 1 kg', cat: 'Poolchemie', desc: 'Schnell lösliches Chlorgranulat für die Stoßchlorung.', price: '18,90', bild: 'img/prod-chlor.jpg' },
+  { id: 'metal-ex-1', name: 'Metal-Ex 1 Liter', cat: 'Poolchemie', desc: 'Bindet Eisen, Kupfer und Mangan im Poolwasser.', price: '21,50', bild: 'img/prod-metalex.jpg' },
+  { id: 'skimmer-schwamm', name: 'Skimmer-Schwamm', cat: 'Reinigung', desc: 'Fängt Sonnenöl, Fette und Schmutz im Skimmer.', price: '4,90', badge: 'Neu', bild: 'img/prod-skimmerschwamm.jpg' },
   { id: 'algen-schutz-5', name: 'Algen Schutz 5 Liter', cat: 'Poolchemie', desc: 'Verhindert Algenwachstum zuverlässig über die Saison.', price: '39,90' },
-  { id: 'rand-reiniger-1', name: 'Randreiniger AL 1 Liter', cat: 'Reinigung', desc: 'Entfernt Fettränder und Verschmutzungen am Beckenrand.', price: '14,90' },
+  { id: 'rand-reiniger-1', name: 'Randreiniger AL 1 Liter', cat: 'Reinigung', desc: 'Entfernt Fettränder und Verschmutzungen am Beckenrand.', price: '14,90', bild: 'img/prod-randreiniger.jpg' },
   { id: 'sandfilter-pro', name: 'Sandfilter Pro 400', cat: 'Filter & Technik', desc: 'Leiser, energiesparender Sandfilter für Pools bis 50 m³.', price: '489,–' },
   { id: 'poolroboter-x4', name: 'Poolroboter X4', cat: 'Reinigung', desc: 'Vollautomatischer Bodenroboter – Wand, Boden, Linie.', price: '799,–', badge: 'Empfehlung' },
   { id: 'solarfolie', name: 'Solarfolie 400μ', cat: 'Abdeckungen', desc: 'Heizt das Wasser auf – auf Maß zugeschnitten.', price: 'Auf Anfrage' },
